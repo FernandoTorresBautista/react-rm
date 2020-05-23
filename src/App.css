@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+div, .App,.container {
+  font-family: "sans-serif";
+  text-align: "center";
+}
+
+.thumbs-wrapper,.legend,.control-dots {
+  display: none;
+} 
+
