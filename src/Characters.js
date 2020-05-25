@@ -36,17 +36,22 @@ class component extends React.Component {
   handlePageChange(pageNumber) {
     if (pageNumber.target.innerText !== undefined) {
       this.setState({
-        currentPageEpi: Number(pageNumber.target.innerText),
+        currentPage: Number(pageNumber.target.innerText),
       });
     } else {
       let auxUpdatePage = pageNumber.currentTarget.getAttribute('aria-label');
       if (auxUpdatePage === "Go to next page") {
         //actualizar los items o 
-        //manejar una nueva petición de axios
+        let actualPagePag = this.state.currentPage + 1;
+        this.setState({
+          currentPage: actualPagePag,
+        });
       }//or get back page
       else {
-        //
-        //
+        let actualPagePag = this.state.currentPage - 1;
+        this.setState({
+          currentPage: actualPagePag,
+        });
       }
     }
   }
@@ -137,7 +142,7 @@ class component extends React.Component {
         <div className="row">
           <Pagination style={paginationDivStyle}
             count={renderPageNumbers.length}
-            page={this.props.currentPageEpi}
+            page={this.props.currentPage}
             onChange={this.handlePageChange.bind(this)} />
         </div>
       </div>

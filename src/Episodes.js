@@ -18,7 +18,6 @@ class component extends React.Component {
     this.state = {
       currentPageEpi: 1,
       todosPerPageEpi: 6,
-      todosEpi: [],
     }
     //this.handleClick = this.handleClick.bind(this);
   }
@@ -38,11 +37,16 @@ class component extends React.Component {
       let auxUpdatePage = pageNumber.currentTarget.getAttribute('aria-label');
       if (auxUpdatePage === "Go to next page") {
         //actualizar los items o 
-        //manejar una nueva petición de axios
+        let actualPagePag = this.state.currentPageEpi + 1;
+        this.setState({
+          currentPageEpi: actualPagePag,
+        });
       }//or get back page
       else {
-        //
-        //
+        let actualPagePag = this.state.currentPageEpi - 1;
+        this.setState({
+          currentPageEpi: actualPagePag,
+        });
       }
     }
   }
@@ -71,11 +75,11 @@ class component extends React.Component {
       margin: "0 auto"
     }
 
-/*    const styleImg = {
-      width: "150px",
-      height: "200px",
-      margin: "0 auto"
-    }*/
+    /*    const styleImg = {
+          width: "150px",
+          height: "200px",
+          margin: "0 auto"
+        }*/
 
     const renderTodos = currentTodos.map((todo, index) => {
       return (
@@ -121,15 +125,15 @@ class component extends React.Component {
     const styleEpisodesContect = {
       display: "block",
     }
-/*    const blockSmallButton = {
-      display: "inline-flex",
-      position: "relative",
-      margin: "0 10px 0 5px ",
-      maxWidth: "4%"
-    }*/
+    /*    const blockSmallButton = {
+          display: "inline-flex",
+          position: "relative",
+          margin: "0 10px 0 5px ",
+          maxWidth: "4%"
+        }*/
 
     return (
-      <div className="EpisodesContainerDiv">
+      <div className="EpisodesContainerDiv" >
         <h4>Episodes</h4>
         <div className="row" id="items-content" style={styleEpisodesContect}>
           {renderTodos}
@@ -140,7 +144,7 @@ class component extends React.Component {
             page={this.props.currentPageEpi}
             onChange={this.handlePageChange.bind(this)} />
         </div>
-      </div>
+      </div >
     );
   }
 }
