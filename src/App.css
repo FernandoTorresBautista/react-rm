@@ -46,3 +46,7 @@ div, .App,.container {
   display: none;
 } 
 
+.MuiPagination-ul {
+  margin: 0 auto!important;
+  display: inline-flex!important;
+}

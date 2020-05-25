@@ -11,6 +11,7 @@ const styleButtonSection = {
   display: "inline-block",
   margin: "5px 10px 5px 5px",
 };
+
 const styleButton = {
   width: "45%",
 };
@@ -215,12 +216,12 @@ class component extends React.Component {
           <CustomizedHook />
         </div>
         <div className="col-xs-12 col-md-12 col-lg-12" style={styleButtonSection}>
-        <Button color="primary" sice="small" variant="outlined" style={styleButton} onClick={refreshPage}>Home</Button>
-          <Button color="primary" sice="small" variant="outlined" style={styleButton} type="submit">Search</Button>
+        <Button color="primary" size="small" variant="outlined" style={styleButton} onClick={refreshPage}>Home</Button>
+          <Button color="primary" size="small" variant="outlined" style={styleButton} type="submit">Search</Button>
         </div>
         <div className="col-xs-12 col-md-12 col-lg-12" style={styleButtonSection}>
-          <Button color="btn btn-outline-dark" sice="small" variant="outlined" style={styleButton} onClick={showEpisodes}>Episodes</Button>
-          <Button color="btn btn-outline-dark" sice="small" variant="outlined" style={styleButton} onClick={showCharacters}>Characters</Button>
+          <Button size="small" variant="outlined" style={styleButton} onClick={showEpisodes}>Episodes</Button>
+          <Button size="small" variant="outlined" style={styleButton} onClick={showCharacters}>Characters</Button>
         </div>
       </form>
     );

@@ -1,23 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getEpisodes } from './reducer';
-
+import Pagination from '@material-ui/lab/Pagination';
 import DemoCarousel from './DemoCarousel';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+//import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+//import CardMedia from '@material-ui/core/CardMedia';
+//import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-/*
-const component = props => (
-  <div className="row">
-    <br />
-    {props.items.map(item =>
-      <div className="col-xs-12 col-md-4 col-lg-4 Episode-card" id={item.id} key={item.id}>
-        <span>Name: {item.name}</span> <br />
-        <small>Release Date {item.air_date}</small> <br />
-        <small>Acronym: {item.episode}</small> <br />
-      </div>
-    )}
-  </div >
-);
-*/
 
 class component extends React.Component {
   constructor() {
@@ -27,13 +20,31 @@ class component extends React.Component {
       todosPerPageEpi: 6,
       todosEpi: [],
     }
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
+  /*handleClick(e) {
     this.setState({
       currentPageEpi: Number(e.target.id),
     })
+  }*/
+
+  handlePageChange(pageNumber) {
+    if (pageNumber.target.innerText !== undefined) {
+      this.setState({
+        currentPageEpi: Number(pageNumber.target.innerText),
+      });
+    } else {
+      let auxUpdatePage = pageNumber.currentTarget.getAttribute('aria-label');
+      if (auxUpdatePage === "Go to next page") {
+        //actualizar los items o 
+        //manejar una nueva petición de axios
+      }//or get back page
+      else {
+        //
+        //
+      }
+    }
   }
 
   render() {
@@ -49,22 +60,45 @@ class component extends React.Component {
       margin: 0,
     }
 
+    const imgDivStyle = {
+      display: "block",
+      width: "80%",
+      heigth: "40%",
+      margin: "0 auto"
+    }
+
+    const paginationDivStyle = {
+      margin: "0 auto"
+    }
+
+/*    const styleImg = {
+      width: "150px",
+      height: "200px",
+      margin: "0 auto"
+    }*/
+
     const renderTodos = currentTodos.map((todo, index) => {
-      //return <li key={index}>{todo.name}</li>;
       return (
         <div className="col-xs-12 col-md-4 col-lg-4" style={styleNoFlex} id={todo.id} key={todo.id}>
-          <div className="col-xs-12 col-sm-12 col-lg-12" style={styleNoFlex}>
-            <h5>{todo.name}</h5>
-            <div>
-              <small>Release Date {todo.air_date}</small> <br />
-              <small>Acronym of episode: {todo.episode}</small> <br />
-            </div>
-            <div>
-              <DemoCarousel imgs={todo.characters}/>
-            </div>
+          <div className="col-xs-12 col-md-12 col-lg-12">
+            <Card>
+              <CardActionArea>
+                <div style={imgDivStyle}>
+                  <DemoCarousel imgs={todo.characters} />
+                </div>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {todo.name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    Release Date {todo.air_date}  <br />
+                    Acronym of episode: {todo.episode} <br />
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           </div>
-        </div>
-      );
+        </div>);
     });
 
     const pageNumbers = [];
@@ -87,12 +121,12 @@ class component extends React.Component {
     const styleEpisodesContect = {
       display: "block",
     }
-    const blockSmallButton = {
+/*    const blockSmallButton = {
       display: "inline-flex",
       position: "relative",
       margin: "0 10px 0 5px ",
       maxWidth: "4%"
-    }
+    }*/
 
     return (
       <div className="EpisodesContainerDiv">
@@ -100,19 +134,11 @@ class component extends React.Component {
         <div className="row" id="items-content" style={styleEpisodesContect}>
           {renderTodos}
         </div>
-        <div className="row" id="page-numbers" style={styleEpisodesContect}>
-          {renderPageNumbers.map(number => {
-            return (
-              <div className="button button-primary" style={blockSmallButton}
-                key={number}
-                id={number}
-                onClick={this.handleClick}
-              >
-                {number}
-              </div>
-            );
-          })
-          }
+        <div className="row">
+          <Pagination style={paginationDivStyle}
+            count={renderPageNumbers.length}
+            page={this.props.currentPageEpi}
+            onChange={this.handlePageChange.bind(this)} />
         </div>
       </div>
     );
@@ -123,6 +149,3 @@ const mapStateToProps = state => ({
   items: getEpisodes(state),
 });
 export default connect(mapStateToProps)(component);
-/**
-{item.characters.map(character => <img key={Math.random()} src={character.replace("character/", "character/avatar/") + ".jpeg"} style={imgStl}></img>)}
- */

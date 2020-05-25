@@ -42,16 +42,15 @@ class DemoCarousel extends Component {
   }
 
   componentDidUpdate(props) {
-    console.log("Here i have to delete : control-dots, f the carousel");
     this.hideInnecesaryElemets();
   }
 
   render() {
     return (
       <Carousel onChange={this.hideInnecesaryElemets()}>
-        {this.state.imagenes.map(item =>
-          <div className="Img-caoursel-content" style={imgContent}>
-            <img key={Math.random()} src={item.replace("character/", "character/avatar/") + ".jpeg"} style={imgStl} alt="carousel_characters"></img>
+        {this.state.imagenes.map((item,index) =>
+          <div className="Img-caoursel-content" key={index} style={imgContent}>
+            <img id={index} src={item.replace("character/", "character/avatar/") + ".jpeg"} style={imgStl} alt="carousel_characters"></img>
             <p className="legend"></p>
           </div>
         )}
